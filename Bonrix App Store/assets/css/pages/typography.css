@@ -1,0 +1,73 @@
+/*
+ *  Document   : typography.css
+ *  Author     : RedStar Theme
+ *  Description: stylesheet for typography
+ */
+
+
+.table.table-borderless > tbody > tr > td {
+    border-bottom: 0px;
+}
+.table.table-condensed thead tr th, .table.table-condensed tbody tr td, .table.table-condensed tbody tr td *:not(.dropdown-default) {
+    white-space: nowrap;
+    vertical-align: middle;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.table.table-condensed tbody tr td {
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+.table.table-borderless tbody tr td {
+    border-top: 0;
+}
+.table tbody tr td {
+    background: #fff;
+    border-bottom: 1px solid rgba(230, 230, 230, 0.7);
+    border-top: 0px;
+    /* padding: 20px; */
+    font-size: 13.5px;
+}
+.text-light {
+  font-weight: 300;
+}
+.text-normal {
+  font-weight: 400;
+}
+.text-medium,
+strong {
+  font-weight: 500;
+}
+.text-bold {
+  font-weight: 700;
+}
+.text-ultra-bold {
+  font-weight: 900;
+}
+.txt-default {
+    color: #bac3d0
+}
+.txt-primary {
+    color: #337ab7
+}
+.txt-success {
+    color: #36c6d3
+}
+.txt-info {
+    color: #659be0
+}
+.txt-warning {
+    color: #F1C40F
+}
+.txt-danger {
+    color: #ed6b75
+}
+.font-red {
+    color: #ff8080!important
+}
+.font-green {
+    color: #00ff00!important
+}
+.font-yellow {
+    color: #ffff80!important
+}

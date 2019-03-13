@@ -1,0 +1,7 @@
+D:\BitBucket\Bonrix App Store\Bonrix App Store\Bonrix App Store\bin\Bonrix App Store.dll.config
+D:\BitBucket\Bonrix App Store\Bonrix App Store\Bonrix App Store\bin\Bonrix App Store.dll
+D:\BitBucket\Bonrix App Store\Bonrix App Store\Bonrix App Store\bin\Bonrix App Store.pdb
+D:\BitBucket\Bonrix App Store\Bonrix App Store\Bonrix App Store\bin\Newtonsoft.Json.Net20.dll
+D:\BitBucket\Bonrix App Store\Bonrix App Store\Bonrix App Store\obj\Debug\Bonrix App Store.dll
+D:\BitBucket\Bonrix App Store\Bonrix App Store\Bonrix App Store\obj\Debug\Bonrix App Store.pdb
+D:\BitBucket\Bonrix App Store\Bonrix App Store\Bonrix App Store\obj\Debug\Bonrix App Store.csprojResolveAssemblyReference.cache

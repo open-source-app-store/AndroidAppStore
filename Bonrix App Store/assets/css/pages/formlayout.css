@@ -1,0 +1,600 @@
+
+/*
+ *  Document   : formlayout.css
+ *  Author     : RedStar Theme
+ *  Description: This style sheet is used for format the bootstrap form components, you can
+ 				 change form style using edit this stylesheet.
+ 
+ 		
+			 		[Table of contents]
+			 
+			 		1. FORM CONTROL
+					2. FORM GROUP
+					3. ICONS	
+					4. TOGGLE BUTTON
+					5. CHECKBOX
+					6. RADIO BUTTONS 
+ */
+
+/********* [1. FORM CONTROL]*********/ 
+.form-control {
+	border-radius: 0;
+	box-shadow: none;
+	border-color: #d2d6de
+}
+
+.form-control:focus {
+	border-color: #3c8dbc;
+	box-shadow: none
+}
+
+.form-control::-moz-placeholder, .form-control:-ms-input-placeholder,
+	.form-control::-webkit-input-placeholder {
+	color: #bbb;
+	opacity: 1
+}
+
+.form-control:not(select) {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+}
+
+/***************** [2. FORM GROUP] **************/
+
+.form-group.has-success label {
+	color: #00a65a
+}
+
+.form-group.has-success .form-control, .form-group.has-success .input-group-addon
+	{
+	border-color: #00a65a;
+	box-shadow: none
+}
+
+.form-group.has-success .help-block {
+	color: #00a65a
+}
+
+.form-group.has-warning label {
+	color: #f39c12
+}
+
+.form-group.has-warning .form-control, .form-group.has-warning .input-group-addon
+	{
+	border-color: #f39c12;
+	box-shadow: none
+}
+
+.form-group.has-warning .help-block {
+	color: #f39c12
+}
+
+.form-group.has-error label {
+	color: #dd4b39
+}
+
+.form-group.has-error .form-control, .form-group.has-error .input-group-addon
+	{
+	border-color: #dd4b39;
+	box-shadow: none
+}
+
+.form-group.has-error .help-block {
+	color: #dd4b39
+}
+
+/***************** [3. ICONS] **************/
+.input-icon>i {
+    color: #ccc;
+    display: block;
+    position: absolute;
+    margin: 11px 16px 4px 10px;
+    z-index: 3;
+    width: 16px;
+    font-size: 16px;
+    text-align: center;
+    left: 0
+}
+.input-icon.right>i {
+    left: auto;
+    right: 8px;
+    float: right;
+}
+.has-success .input-icon>i {
+    color: #36c6d3
+}
+.has-warning .input-icon>i {
+    color: #F1C40F
+}
+.has-info .input-icon>i {
+    color: #659be0
+}
+.has-error .input-icon>i {
+    color: #ed6b75
+}
+
+.input-group .input-group-addon {
+	border-radius: 0;
+	border-color: #d2d6de;
+	background-color: #fff;
+	border: 1px solid #d4d0d0;
+	border-top: 1px solid #d4d0d0;
+	border-bottom: 1px solid #d4d0d0;
+}
+.input-group-addon {
+    padding: 6px 12px;
+}
+
+.btn-group-vertical .btn.btn-flat:first-of-type, .btn-group-vertical .btn.btn-flat:last-of-type
+	{
+	border-radius: 0
+}
+.input-group-sm>.form-control, .input-group-sm>.input-group-addon, .input-group-sm>.input-group-btn>.btn {
+    height: 30px;
+    padding: 5px 10px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+}
+.icheck>label {
+	padding-left: 0
+}
+
+.form-control-feedback.fa {
+	line-height: 34px
+}
+
+.input-lg+.form-control-feedback.fa, .input-group-lg+.form-control-feedback.fa,
+	.form-group-lg .form-control+.form-control-feedback.fa {
+	line-height: 46px
+}
+
+.input-sm+.form-control-feedback.fa, .input-group-sm+.form-control-feedback.fa,
+	.form-group-sm .form-control+.form-control-feedback.fa {
+	line-height: 30px
+}
+
+/************************************************* 
+
+					advance form 
+			
+****************************************************/
+
+/*************** [4. TOGGLE BUTTON] ***************/
+
+.switchToggle {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switchToggle input {display:none;}
+
+.switchToggle .slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin:0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.switchToggle .slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.switchToggle input:checked + .red{
+  background-color: #dc5754;
+}
+
+.switchToggle input:focus + .red{
+  box-shadow: 0 0 1px #dc5754;
+}
+
+.switchToggle input:checked + .green{
+  background-color: #64bd63;
+}
+
+.switchToggle input:focus + .green{
+  box-shadow: 0 0 1px #64bd63;
+}
+
+.switchToggle input:checked + .aqua{
+  background-color: #00C0EF;
+}
+
+.switchToggle input:focus + .aqua{
+  box-shadow: 0 0 1px #00C0EF;
+}
+
+.switchToggle input:checked + .yellow{
+  background-color: #F39C12;
+}
+
+.switchToggle input:focus + .yellow{
+  box-shadow: 0 0 1px #F39C12;
+}
+
+
+.switchToggle input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+.switchToggle .slider.round {
+  border-radius: 34px;
+}
+
+.switchToggle .slider.round:before {
+  border-radius: 50%;
+}
+
+
+/***************  [5. CHECKBOX] ***************/
+.checkbox {
+	padding-left: 20px;
+}
+
+.checkbox label {
+	display: inline-block;
+	position: relative;
+	padding-left: 5px;
+}
+
+.checkbox label::before {
+	content: "";
+	display: inline-block;
+	position: absolute;
+	width: 17px;
+	height: 17px;
+	left: 0;
+	margin-left: -20px;
+	border: 1px solid #cccccc;
+	background-color: #fff;
+	-webkit-transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
+	-o-transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
+	transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
+}
+
+.checkbox label::after {
+	display: inline-block;
+	position: absolute;
+	width: 16px;
+	height: 16px;
+	left: 0;
+	top: 0;
+	margin-left: -20px;
+	padding-left: 3px;
+	padding-top: 1px;
+	font-size: 11px;
+	color: #555555;
+}
+
+.checkbox input[type="checkbox"] {
+	opacity: 0;
+}
+
+.checkbox input[type="checkbox"]:checked+label::after {
+	font-family: 'FontAwesome';
+	content: "\f00c";
+}
+
+.checkbox input[type="checkbox"]:disabled+label {
+	opacity: 0.65;
+}
+
+.checkbox input[type="checkbox"]:disabled+label::before {
+	background-color: #eeeeee;
+	color: #eeeeef;
+	cursor: not-allowed;
+}
+
+.checkbox.checkbox-inline {
+	margin-top: 0;
+}
+
+.checkbox-aqua input[type="checkbox"]:checked+label::before {
+	background-color: #00C0EF;
+	border-color: #00C0EE;
+}
+
+.checkbox-aqua input[type="checkbox"]:checked+label::after {
+	color: #fff;
+}
+
+.checkbox-aqua input[type="checkbox"]:hover+label::before {
+	border: 2px solid #00C0EF;
+}
+
+/* checkbox with icon color */
+.checkbox-icon-aqua input[type="checkbox"]:checked+label::after {
+	color: #00C0EF;
+}
+
+.checkbox-icon-aqua input[type="checkbox"]:hover+label::before {
+	border: 1px solid #00C0EF;
+}
+
+/* checkbox with backgound color */
+.checkbox-yellow input[type="checkbox"]:checked+label::before {
+	background-color: #F39C12;
+	border-color: #F39C11;
+}
+
+.checkbox-yellow input[type="checkbox"]:checked+label::after {
+	color: #fff;
+}
+
+.checkbox-yellow input[type="checkbox"]:hover+label::before {
+	border: 2px solid #F39C12;
+}
+
+/* checkbox with icon color */
+.checkbox-icon-yellow input[type="checkbox"]:checked+label::after {
+	color: #F39C12;
+}
+
+.checkbox-icon-yellow input[type="checkbox"]:hover+label::before {
+	border: 1px solid #F39C12;
+}
+
+.checkbox-black input[type="checkbox"]:checked+label::before {
+	background-color: #000000;
+	border-color: #000009;
+}
+
+.checkbox-black input[type="checkbox"]:checked+label::after {
+	color: #fff;
+}
+
+.checkbox-black input[type="checkbox"]:hover+label::before {
+	border: 2px solid #000000;
+}
+
+.checkbox-icon-black input[type="checkbox"]:checked+label::after {
+	color: #000000;
+}
+
+.checkbox-icon-black input[type="checkbox"]:hover+label::before {
+	border: 1px solid #000000;
+}
+
+.checkbox-red input[type="checkbox"]:checked+label::before {
+	background-color: #dc5754;
+	border-color: #dc5755;
+}
+
+.checkbox-red input[type="checkbox"]:checked+label::after {
+	color: #fff;
+}
+
+.checkbox-red input[type="checkbox"]:hover+label::before {
+	border: 2px solid #dc5754;
+}
+
+.checkbox-icon-red input[type="checkbox"]:checked+label::after {
+	color: #dc5754;
+}
+
+.checkbox-icon-red input[type="checkbox"]:hover+label::before {
+	border: 1px solid #dc5754;
+}
+
+/***************  [6. RADIO BUTTONS ] ***************/
+
+.radio {
+	padding-left: 20px;
+}
+
+.radio label {
+	display: inline-block;
+	position: relative;
+	padding-left: 5px;
+}
+
+.radio label::before {
+	content: "";
+	display: inline-block;
+	position: absolute;
+	width: 17px;
+	height: 17px;
+	left: 0;
+	margin-left: -20px;
+	border: 1px solid #cccccc;
+	border-radius: 50%;
+	background-color: #fff;
+	-webkit-transition: border 0.15s ease-in-out;
+	-o-transition: border 0.15s ease-in-out;
+	transition: border 0.15s ease-in-out;
+}
+
+.radio label::after {
+	display: inline-block;
+	position: absolute;
+	content: " ";
+	width: 11px;
+	height: 11px;
+	left: 3px;
+	top: 3px;
+	margin-left: -20px;
+	border-radius: 50%;
+	background-color: #555555;
+	-webkit-transform: scale(0, 0);
+	-ms-transform: scale(0, 0);
+	-o-transform: scale(0, 0);
+	transform: scale(0, 0);
+	-webkit-transition: -webkit-transform 0.1s
+		cubic-bezier(0.8, -0.33, 0.2, 1.33);
+	-moz-transition: -moz-transform 0.1s cubic-bezier(0.8, -0.33, 0.2, 1.33);
+	-o-transition: -o-transform 0.1s cubic-bezier(0.8, -0.33, 0.2, 1.33);
+	transition: transform 0.1s cubic-bezier(0.8, -0.33, 0.2, 1.33);
+}
+
+.radio input[type="radio"] {
+	opacity: 0;
+}
+
+.radio input[type="radio"]:checked+label::after {
+	-webkit-transform: scale(1, 1);
+	-ms-transform: scale(1, 1);
+	-o-transform: scale(1, 1);
+	transform: scale(1, 1);
+}
+
+.radio input[type="radio"]:disabled+label {
+	opacity: 0.65;
+}
+
+.radio input[type="radio"]:disabled+label::before {
+	cursor: not-allowed;
+}
+
+.radio.radio-inline {
+	margin-top: 0;
+}
+
+.radio-black input[type="radio"]+label::after {
+	background-color: #000000;
+}
+
+.radio-black input[type="radio"]:checked+label::before {
+	border-color: #000000;
+}
+
+.radio-black input[type="radio"]:checked+label::after {
+	background-color: #000000;
+}
+
+.radio-yellow input[type="radio"]+label::after {
+	background-color: #F39C12;
+}
+
+.radio-yellow input[type="radio"]:checked+label::before {
+	border-color: #F39C12;
+}
+
+.radio-yellow input[type="radio"]:checked+label::after {
+	background-color: #F39C12;
+}
+
+.radio-red input[type="radio"]+label::after {
+	background-color: #dc5754;
+}
+
+.radio-red input[type="radio"]:checked+label::before {
+	border-color: #dc5754;
+}
+
+.radio-red input[type="radio"]:checked+label::after {
+	background-color: #dc5754;
+}
+
+.radio-aqua input[type="radio"]+label::after {
+	background-color: #00C0EF;
+}
+
+.radio-aqua input[type="radio"]:checked+label::before {
+	border-color: #00C0EF;
+}
+
+.radio-aqua input[type="radio"]:checked+label::after {
+	background-color: #00C0EF;
+}
+
+
+.radioicon-group
+{
+	margin-top: 10px;
+}
+.radioicon label{
+	font-weight:normal;
+	font-size: 14px;
+	color: black;
+	margin: 0px;
+	height:25px;
+}
+
+.radioicon span{
+	font-size: 19px;
+	height:25px;
+	width:20px;
+}
+/* Hidding the radiobuttons & checkboxes */
+.radioicon input[type="radio"]{
+    display: none;
+}
+/* Hidding the "check" status of inputs */
+.radioicon input[type="radio"] + label .fa-circle  {
+display: block;
+color:#cccccc;
+}
+
+/* Styling the "check" status */
+.radioicon-aqua input[type="radio"]:checked + label .fa-circle {
+display: block;
+color: #00C0EF;
+}
+
+.radioicon-red input[type="radio"]:checked + label .fa-circle {
+display: block;
+color: #dc5754;
+}
+
+.radioicon-yellow input[type="radio"]:checked + label .fa-circle {
+display: block;
+color: #F39C12;
+}
+
+.radioicon-black input[type="radio"]:checked + label .fa-circle {
+display: block;
+color: #000000;
+}
+ 
+ 
+/* Spinner control */
+
+.input-group-btn-vertical {
+  position: relative;
+  white-space: nowrap;
+  width: 2%;
+  vertical-align: middle;
+  display: table-cell;
+}
+
+.input-group-btn-vertical > .btn {
+  display: block;
+  float: none;
+  width: 30px;
+  padding: 8px;
+  margin-left: -1px;
+  position: relative;
+  border-radius: 0;
+}
+
+.input-group-btn-vertical > .btn:first-child {
+  border-top-right-radius: 0px;
+}
+
+.input-group-btn-vertical > .btn:last-child {
+  border-bottom-right-radius: 0px;
+}
+
+.input-group-btn-vertical i {
+  position: absolute;
+  top: 0;
+  left: 10px;
+}

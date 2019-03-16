@@ -24,9 +24,10 @@
             $("#ContentPlaceHolder1_hiddenFolderName").val(FolderName);
             ShowPanelAdd();
         }
-        function EditValue(FolderName,Name,Package,Version) {           
+        function EditValue(FolderName,ApkName,Name,Package,Version) {           
 
             $("#ContentPlaceHolder1_hiddenFolderName").val(FolderName);
+            $("#ContentPlaceHolder1_hiddenFolderApkName").val(ApkName);
             $("#ContentPlaceHolder1_txtName").val(Name);
             $("#ContentPlaceHolder1_txtPackageName").val(Package);
             $("#ContentPlaceHolder1_txtVersion").val(Version);
@@ -56,6 +57,7 @@
                         <ContentTemplate>
                             <div class="modal-body">
                                 <asp:HiddenField ID="hiddenFolderName" runat="server" />
+                                <asp:HiddenField ID="hiddenFolderApkName" runat="server" />
                                 <div class="col-lg-6 p-t-20">
                                     <asp:FileUpload ID="FileUpload1" runat="server" accept=".apk" />
                                     <asp:RegularExpressionValidator ID="regexValidator" runat="server"
@@ -195,7 +197,7 @@
             <!-- Modal content-->
             <div class="modal-content ">
                 <div class="modal-header">
-                    <h4 class="modal-title">Create Store</h4>
+                    <h4 class="modal-title">Edit Store</h4>
                     <a class="t-close btn-color fa fa-times" data-dismiss="modal" href="javascript:;"></a>
                 </div>
                 <div class="modal-body">

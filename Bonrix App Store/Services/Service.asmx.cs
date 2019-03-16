@@ -61,7 +61,7 @@ namespace Bonrix_App_Store.Services
                                 
                                 if (System.IO.Directory.Exists(dirInfo.ToString()))
                                 {
-                                    string[] innerSubdirectoryEntries = Directory.GetFiles(dirInfo.ToString());
+                                    string[] innerSubdirectoryEntries = Directory.GetFiles(dirInfo.ToString(), "*.apk");
 
                                     if (innerSubdirectoryEntries.Length > 0)
                                     {
@@ -69,16 +69,22 @@ namespace Bonrix_App_Store.Services
                                         {
                                             ClsAppList objClsAppList = new ClsAppList();
                                             DirectoryInfo innerDirInfo = new DirectoryInfo(innerDirectory);
-                                            if (System.IO.File.Exists(directory + "\\" + "package.txt"))
+
+                                            objClsAppList.ApkName = innerDirInfo.Name.ToString();
+                                            int StringPosition = innerDirectory.IndexOf("Raw_Details");
+                                            string path = innerDirectory.Substring(StringPosition, innerDirectory.Length - StringPosition);
+
+                                            if (System.IO.File.Exists(directory + "\\StoreAPK" + "\\" + innerDirInfo.Name.Substring(0, innerDirInfo.Name.Length - 4) + ".txt"))
                                             {
-                                                //getDetails_Directory = System.IO.File.ReadAllText(StoreDirectory + "\\" + dirInfo.Name.Substring(0, dirInfo.Name.Length - 3) + "\\.txt");
-                                                var details = JObject.Parse(System.IO.File.ReadAllText(directory + "\\" + "package.txt"));
+                                                //getDetails_Directory = System.IO.File.ReadAllText(StoreDirectory + "\\" + dirInfo.Name.Substring(0, dirInfo.Name.Length - 4) + "\\.txt");
+                                                var details = JObject.Parse(System.IO.File.ReadAllText(directory + "\\StoreAPK" + "\\" + innerDirInfo.Name.Substring(0, innerDirInfo.Name.Length - 4) + ".txt"));
+                                                objClsAppList.Name = details["name"].ToString().Replace("\"", "").Trim();
                                                 objClsAppList.Package = details["package"].ToString().Replace("\"", "").Trim();
                                                 objClsAppList.Version = details["version"].ToString().Replace("\"", "").Trim();
                                             }
-                                            objClsAppList.ApkName = innerDirInfo.Name.ToString();
                                             objClsAppList.DateTime = innerDirInfo.CreationTime.ToShortDateString();
                                             objClsAppList.ImageUrl = "/Images/android_logo.jpg";
+                                            objClsAppList.ApkPath = path.Replace("Raw_Details", "").Replace(@"\", "/");
                                             LstClsAppList.Add(objClsAppList);
                                         }
                                         
@@ -121,17 +127,21 @@ namespace Bonrix_App_Store.Services
                                 DirectoryInfo dirInfo = new DirectoryInfo(directory);
                                 ClsAppList objClsAppList = new ClsAppList();
 
-                                if (System.IO.File.Exists(StoreDirectory + "\\" + dirInfo.Name.Substring(0, dirInfo.Name.Length - 3) + ".txt"))
+                                if (System.IO.File.Exists(StoreDirectory + "\\" + dirInfo.Name.Substring(0, dirInfo.Name.Length - 4) + ".txt"))
                                 {
-                                    //getDetails_Directory = System.IO.File.ReadAllText(StoreDirectory + "\\" + dirInfo.Name.Substring(0, dirInfo.Name.Length - 3) + "\\.txt");
-                                    var details = JObject.Parse(System.IO.File.ReadAllText(StoreDirectory + "\\" + dirInfo.Name.Substring(0, dirInfo.Name.Length - 3) + ".txt"));
+                                    //getDetails_Directory = System.IO.File.ReadAllText(StoreDirectory + "\\" + dirInfo.Name.Substring(0, dirInfo.Name.Length - 4) + "\\.txt");
+                                    var details = JObject.Parse(System.IO.File.ReadAllText(StoreDirectory + "\\" + dirInfo.Name.Substring(0, dirInfo.Name.Length - 4) + ".txt"));
+                                    objClsAppList.Name = details["name"].ToString().Replace("\"", "").Trim();
                                     objClsAppList.Package = details["package"].ToString().Replace("\"", "").Trim();
                                     objClsAppList.Version = details["version"].ToString().Replace("\"", "").Trim();
                                 }
+                                int StringPosition = directory.IndexOf("Raw_Details");
+                                string path = directory.Substring(StringPosition, directory.Length - StringPosition);
 
                                 objClsAppList.ApkName = dirInfo.Name.ToString();
                                 objClsAppList.DateTime = dirInfo.CreationTime.ToShortDateString();
                                 objClsAppList.ImageUrl = "../Images/android_logo.jpg";
+                                objClsAppList.ApkPath = path.Replace("Raw_Details", "").Replace(@"\", "/");
                                 LstClsAppList.Add(objClsAppList);
                             }
                             objGetClsAppList.Data = LstClsAppList;

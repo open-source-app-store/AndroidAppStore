@@ -13,6 +13,7 @@ namespace Bonrix_App_Store.Class
         public string Name { get; set; }
         public string Package { get; set; }
         public string Version { get; set; }
+        public string ApkPath { get; set; }
     }
     public class GetClsAppList
     {

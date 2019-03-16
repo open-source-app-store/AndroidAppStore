@@ -68,10 +68,10 @@ namespace Bonrix_App_Store.ClientStore
                         DirectoryInfo dirInfo = new DirectoryInfo(directory);
                         GridList objGridList = new GridList();
 
-                        if (System.IO.File.Exists(StoreDirectory + "\\" + dirInfo.Name.Substring(0, dirInfo.Name.Length - 3) + ".txt"))
+                        if (System.IO.File.Exists(StoreDirectory + "\\" + dirInfo.Name.Substring(0, dirInfo.Name.Length - 4) + ".txt"))
                         {
-                            //getDetails_Directory = System.IO.File.ReadAllText(StoreDirectory + "\\" + dirInfo.Name.Substring(0, dirInfo.Name.Length - 3) + "\\.txt");
-                            details = JObject.Parse(System.IO.File.ReadAllText(StoreDirectory + "\\" + dirInfo.Name.Substring(0, dirInfo.Name.Length - 3) + ".txt"));
+                            //getDetails_Directory = System.IO.File.ReadAllText(StoreDirectory + "\\" + dirInfo.Name.Substring(0, dirInfo.Name.Length - 4) + "\\.txt");
+                            details = JObject.Parse(System.IO.File.ReadAllText(StoreDirectory + "\\" + dirInfo.Name.Substring(0, dirInfo.Name.Length - 4) + ".txt"));
                             objGridList.Package = details["package"].ToString().Replace("\"", "").Trim();
                             objGridList.Version = details["version"].ToString().Replace("\"", "").Trim();
                             objGridList.Name = details["name"].ToString().Replace("\"", "").Trim();
@@ -174,7 +174,7 @@ namespace Bonrix_App_Store.ClientStore
 
                 File.Delete(StoreDirectory);
 
-                StoreDirectory = StoreDirectory + "\\" + Session["SubDomain"].ToString() + "\\APP\\" + lblApkName + ".txt";
+                StoreDirectory = ConfigurationManager.AppSettings["Store_Directory"].ToString() + "\\" + Session["SubDomain"].ToString() + "\\APP\\" + lblApkName.Substring(0, lblApkName.Length - 4) + ".txt";
                 if (File.Exists(StoreDirectory))
                 {
                    File.Delete(StoreDirectory);

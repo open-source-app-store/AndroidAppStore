@@ -108,7 +108,7 @@ namespace Bonrix_App_Store.Class
             }
             catch (Exception ex)
             {
-                
+                LogException(ex, "Error at Page ClsErrorLog Request_Response_Log-->YesBank_Log");
             }
         }
     }

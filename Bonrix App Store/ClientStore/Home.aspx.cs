@@ -24,9 +24,9 @@ namespace Bonrix_App_Store.ClientStore
                 if (!IsPostBack)
                 {
 
-                    string DomainName = "bonrix.myappstore.co.in";
+                    //string DomainName = "bonrix.myappstore.co.in";
                     //ClsLog.Url_Log("Request", "Url --> " + HttpContext.Current.Request.Url.ToString());
-                    //string DomainName = HttpContext.Current.Request.Url.Host;
+                    string DomainName = HttpContext.Current.Request.Url.Host;
                     //ClsLog.Url_Log("Request ", "DomainName--> " + DomainName);                    
                     if (DomainName.Contains("."))
                     {
@@ -64,28 +64,29 @@ namespace Bonrix_App_Store.ClientStore
                 StoreDirectory = StoreDirectory + "\\" + subDomain + "\\APP";
                 ApkPath = ConfigurationManager.AppSettings["Store_Directory"].ToString() + "\\" + subDomain + "\\StoreAPK";
 
+
+                //For file name
+                string[] ApkStoreDirectory = Directory.GetFiles(ApkPath, "*.apk");
+                if (ApkStoreDirectory.Length > 0)
+                {
+                    DirectoryInfo dirInfoApk = new DirectoryInfo(ApkStoreDirectory[0]);
+                    dwnldlink.Attributes["href"] = "http://" + subDomain + domain + "/Raw_Details/Store/" + subDomain + "/StoreAPK/" + dirInfoApk.Name;
+                    dwnldlink.Attributes["title"] = "Download " + subDomain.ToUpper() + " Store Client Apk";
+                }
+
                 string[] subdirectoryEntries = Directory.GetFiles(StoreDirectory, "*.apk");
                 if (subdirectoryEntries.Length > 0)
                 {
-                    //For file name
-                    string[] ApkStoreDirectory = Directory.GetFiles(ApkPath);
-                    if (ApkStoreDirectory.Length > 0)
-                    {
-                        DirectoryInfo dirInfoApk = new DirectoryInfo(ApkStoreDirectory[0]);
-                        dwnldlink.Attributes["href"] = "http://" + subDomain + domain + "/Raw_Details/Store/" + subDomain + "/StoreAPK/" + dirInfoApk.Name;
-                        dwnldlink.Attributes["title"] = "Download " + subDomain.ToUpper() + " Store Client Apk";
-                    }
-
                     foreach (var directory in subdirectoryEntries)
                     {
 
                         DirectoryInfo dirInfo = new DirectoryInfo(directory);
                         GridList objGrid = new GridList();
 
-                        if (System.IO.File.Exists(StoreDirectory + "\\" + dirInfo.Name.Substring(0, dirInfo.Name.Length - 3) + ".txt"))
+                        if (System.IO.File.Exists(StoreDirectory + "\\" + dirInfo.Name.Substring(0, dirInfo.Name.Length - 4) + ".txt"))
                         {
-                            //getDetails_Directory = System.IO.File.ReadAllText(StoreDirectory + "\\" + dirInfo.Name.Substring(0, dirInfo.Name.Length - 3) + "\\.txt");
-                            details = JObject.Parse(System.IO.File.ReadAllText(StoreDirectory + "\\" + dirInfo.Name.Substring(0, dirInfo.Name.Length - 3) + ".txt"));
+                            //getDetails_Directory = System.IO.File.ReadAllText(StoreDirectory + "\\" + dirInfo.Name.Substring(0, dirInfo.Name.Length - 4) + "\\.txt");
+                            details = JObject.Parse(System.IO.File.ReadAllText(StoreDirectory + "\\" + dirInfo.Name.Substring(0, dirInfo.Name.Length - 4) + ".txt"));
                             objGrid.Package = details["package"].ToString().Replace("\"", "").Trim();
                             objGrid.Version = details["version"].ToString().Replace("\"", "").Trim();
                             objGrid.Name = details["name"].ToString().Replace("\"", "").Trim();
@@ -179,8 +180,8 @@ namespace Bonrix_App_Store.ClientStore
 
                         FileUpload1.SaveAs(StoreDirectory);
                         //Write Package file
-                        System.IO.File.Delete(PackagePath + "\\" + filename.Substring(0, filename.Length - 3) + ".txt");
-                        StreamWriter sw = new StreamWriter(PackagePath + "\\" + filename.Substring(0, filename.Length - 3) + ".txt", true);
+                        System.IO.File.Delete(PackagePath + "\\" + filename.Substring(0, filename.Length - 4) + ".txt");
+                        StreamWriter sw = new StreamWriter(PackagePath + "\\" + filename.Substring(0, filename.Length - 4) + ".txt", true);
                         sw.Write("{\"name\":\"" + txtName.Text.ToString().Trim() + "\",\"package\":\"" + txtPackageName.Text.ToString().Trim() + "\",\"version\":\"" + txtVersion.Text.ToString().Trim() + "\"}");
                         sw.Close();
 
@@ -217,6 +218,10 @@ namespace Bonrix_App_Store.ClientStore
             {
                 //Check for password file of store          
                 string filePath = "";
+                txtEditName.Text = "";
+                txtEditPackage.Text = "";
+                txtEditVersion.Text = "";
+
                 filePath = ConfigurationManager.AppSettings["Store_Directory"].ToString();
                 if (System.IO.File.Exists(filePath + "\\" + Session["SubDomain"].ToString() + "\\password.txt"))
                 {
@@ -245,7 +250,7 @@ namespace Bonrix_App_Store.ClientStore
             try
             {
                 string ApkPath = "";
-                ApkPath = ConfigurationManager.AppSettings["Store_Directory"].ToString() + "\\" + Session["SubDomain"] + "\\APP\\" + hiddenEditApkName.Value.Substring(0, hiddenEditApkName.Value.Length - 3).ToString() + ".txt";
+                ApkPath = ConfigurationManager.AppSettings["Store_Directory"].ToString() + "\\" + Session["SubDomain"] + "\\APP\\" + hiddenEditApkName.Value.Substring(0, hiddenEditApkName.Value.Length - 4).ToString() + ".txt";
                 System.IO.File.Delete(ApkPath);
                 StreamWriter sw = new StreamWriter(ApkPath, true);
                 sw.Write("{\"name\":\"" + txtEditName.Text.ToString().Trim() + "\",\"package\":\"" + txtEditPackage.Text.ToString().Trim() + "\",\"version\":\"" + txtEditVersion.Text.ToString().Trim() + "\"}");
@@ -424,7 +429,7 @@ namespace Bonrix_App_Store.ClientStore
             {
                 RepeaterItem item = (sender as LinkButton).Parent as RepeaterItem;
                 string linkcopy = (item.FindControl("lnkdownload") as HtmlAnchor).HRef.ToString();
-                string name = (item.FindControl("lblApkName") as Label).Text.Trim();
+                string name = (item.FindControl("lblName") as Label).Text.Trim();
                 string version = (item.FindControl("lblAPKVersion") as Label).Text.Trim();
                 version = version.Replace("Version:", "");
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Msg", "onShare('" + name + "','" + linkcopy + "','" + version + "','" + Session["SubDomain"].ToString().ToUpper() + "');", true);
@@ -515,6 +520,107 @@ namespace Bonrix_App_Store.ClientStore
                 ClsLog.LogException(ex, "Error at Page Client Store Home-->SendRequest");
                 return ex.ToString();
             }
+        }
+
+        protected void lnkShareMain_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string ApkPath = "";
+                string linkcopy = "";
+                string name = "";
+                string version = "";
+
+                string Details_Directory = ConfigurationManager.AppSettings["Details_Directory"].ToString();
+                string getDetails_Directory = System.IO.File.ReadAllText(Details_Directory + "details.txt");
+                var details = JObject.Parse(getDetails_Directory);
+
+                string domain = details["domain"].ToString().Replace("\"", "").Trim();
+                subDomain = Session["SubDomain"].ToString();
+
+                ApkPath = ConfigurationManager.AppSettings["Store_Directory"].ToString() + "\\" + subDomain + "\\StoreAPK";
+
+                string[] subdirectoryEntries = Directory.GetFiles(ApkPath, "*.apk");
+                if (subdirectoryEntries.Length > 0)
+                {
+
+                    DirectoryInfo dirInfoApk = new DirectoryInfo(subdirectoryEntries[0]);
+                    linkcopy = "http://" + subDomain + domain + "/Raw_Details/Store/" + subDomain + "/StoreAPK/" + dirInfoApk.Name;
+
+                    if (System.IO.File.Exists(ApkPath + "\\" + dirInfoApk.Name.Substring(0, dirInfoApk.Name.Length - 4) + ".txt"))
+                    {
+                        //getDetails_Directory = System.IO.File.ReadAllText(StoreDirectory + "\\" + dirInfo.Name.Substring(0, dirInfo.Name.Length - 4) + "\\.txt");
+                        details = JObject.Parse(System.IO.File.ReadAllText(ApkPath + "\\" + dirInfoApk.Name.Substring(0, dirInfoApk.Name.Length - 4) + ".txt"));
+                        version = details["version"].ToString().Replace("\"", "").Trim();
+                        name = details["name"].ToString().Replace("\"", "").Trim();
+                    }
+
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Msg", "onShare('" + name + "','" + linkcopy + "','" + version + "','" + Session["SubDomain"].ToString().ToUpper() + "');", true);
+                }
+            }
+            catch (Exception ex)
+            {
+                Notification("Error at OnShareMain", "error");
+                ClsLog.LogException(ex, "Error at Page Client Store Home-->OnShareMain");
+            }
+        }
+
+        protected void lnkSendSmsMain_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string ApkPath = "";
+                string linkcopy = "";
+
+                string Details_Directory = ConfigurationManager.AppSettings["Details_Directory"].ToString();
+                string getDetails_Directory = System.IO.File.ReadAllText(Details_Directory + "details.txt");
+                var details = JObject.Parse(getDetails_Directory);
+
+                string domain = details["domain"].ToString().Replace("\"", "").Trim();
+                subDomain = Session["SubDomain"].ToString();
+
+                ApkPath = ConfigurationManager.AppSettings["Store_Directory"].ToString() + "\\" + subDomain + "\\StoreAPK";
+
+                string[] subdirectoryEntries = Directory.GetFiles(ApkPath, "*.apk");
+                if (subdirectoryEntries.Length > 0)
+                {
+
+                    DirectoryInfo dirInfoApk = new DirectoryInfo(subdirectoryEntries[0]);
+                    linkcopy = "http://" + subDomain + domain + "/Raw_Details/Store/" + subDomain + "/StoreAPK/" + dirInfoApk.Name;
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Msg", "onSendSms('" + linkcopy + "');", true);
+                }
+            }
+            catch (Exception ex)
+            {
+                Notification("Error at OnSendSmsMain", "error");
+                ClsLog.LogException(ex, "Error at Page Client Store Home-->OnSendSmsMain");
+            }
+        }
+
+        protected void btnUpload_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                //Check for password file of store          
+                string filePath = "";
+                filePath = ConfigurationManager.AppSettings["Store_Directory"].ToString();
+                if (System.IO.File.Exists(filePath + "\\" + Session["SubDomain"].ToString() + "\\password.txt"))
+                {
+                    if (Session["StoreUserName"] == null)
+                    {
+                        Notification("Login to Upload APP.", "error");
+                        return;
+                    }
+                }
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Msg", "ShowPanelAdd();", true);
+
+            }
+            catch(Exception ex)
+            {
+                Notification("Error at OnUpload", "error");
+                ClsLog.LogException(ex, "Error at Page Client Store Home-->btnUpload");
+            }
+
         }
     }
 }

@@ -50,7 +50,7 @@ namespace Bonrix_App_Store.ClientStore
         {
             try
             {
-                Response.Redirect("~/ClientStore/Login.aspx");
+                Response.Redirect("~/ClientStore/Login.aspx",false);
             }
             catch (Exception ex)
             {

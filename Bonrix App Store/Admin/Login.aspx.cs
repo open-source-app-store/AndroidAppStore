@@ -55,6 +55,18 @@ namespace Bonrix_App_Store.Admin
                 if (txtuser_name.Text.ToString() == username && txtpassword.Text.ToString() == password)
                 {
                     Session["StoreUserName"] = username;
+                    //if (Response.IsClientConnected)
+                    //{
+                    //    // If still connected, redirect
+                    //    // to another page. 
+                    //    Response.Redirect("~/Admin/Home.aspx", false);
+                    //}
+                    //else
+                    //{
+                    //    // If the browser is not connected
+                    //    // stop all response processing.
+                    //    Response.End();
+                    //}
                     Response.Redirect("~/Admin/Home.aspx",false);
                 }
                 else

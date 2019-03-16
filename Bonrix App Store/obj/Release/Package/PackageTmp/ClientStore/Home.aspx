@@ -13,15 +13,14 @@
             $("#PanelAdd").toggle();
         }
 
-        function ShowPanelAdd(btnValue) {           
-            if (btnValue == "upload")
-            {
+        function ShowPanelAdd() {
+            <%--if (btnValue == "upload") {
                 var flag = '<%=Session["StoreUserName"] == null%>';
                 if (flag.toLowerCase() == 'true') {
                     Notification("Login to Upload APP", "error");
                     return;
                 }
-            }                    
+            }--%>
             $("#PanelAdd").toggle('slow');
             ShowPanelLoad();
         }
@@ -45,11 +44,11 @@
         }
 
         function onShare(name, link, version, storename) {
-            document.getElementById("fbLink").href = "https://facebook.com/sharer/sharer.php?text=APP Name: " + name + "%0A%0ADownload Link: " + link + "%0A%0AVersion: " + version + "%0A%0APowered By http://www.myappstore.co.in";//https://facebook.com/sharer/sharer.php?u=http%3A%2F%2Fsharingbuttons.io
-            document.getElementById("twLink").href = "https://twitter.com/intent/tweet/?text=APP Name: " + name + "%0A%0ADownload Link: " + link + "%0A%0AVersion: " + version + "%0A%0APowered By http://www.myappstore.co.in";//https://twitter.com/intent/tweet/?text=Super%20fast%20and%20easy%20Social%20Media%20Sharing%20Buttons.%20No%20JavaScript.%20No%20tracking.&amp;url=http%3A%2F%2Fsharingbuttons.io
-            document.getElementById("gpLink").href = "https://plus.google.com/share?text=APP Name: " + name + "%0A%0ADownload Link: " + link + "%0A%0AVersion: " + version + "%0A%0APowered By http://www.myappstore.co.in";//https://plus.google.com/share?url=http%3A%2F%2Fsharingbuttons.io
-            document.getElementById("mlLink").href = "mailto:?subject=APK Link&amp;body=APP Name: " + name + "%0A%0ADownload Link: " + link + "%0A%0AVersion: " + version + "%0A%0APowered By http://www.myappstore.co.in"; //mailto:?subject=Super%20fast%20and%20easy%20Social%20Media%20Sharing%20Buttons.%20No%20JavaScript.%20No%20tracking.&amp;body=http%3A%2F%2Fsharingbuttons.io
-            document.getElementById("waLink").href = "https://web.whatsapp.com/send?text=*APP Name:* " + name + "%0A%0A*Download Link:* " + link + "%0A%0A*Version:* " + version + "%0A%0A*Powered By* http://www.myappstore.co.in"; //mailto:?subject=Super%20fast%20and%20easy%20Social%20Media%20Sharing%20Buttons.%20No%20JavaScript.%20No%20tracking.&amp;body=http%3A%2F%2Fsharingbuttons.io
+            document.getElementById("fbLink").href = "https://facebook.com/sharer/sharer.php?text=APP Name: " + name + "%0A%0ADownload Link: " + link + "%0A%0AVersion: " + version + "%0A%0AStore Name: " + storename + " ( http://" + storename.toLowerCase() + ".myappstore.co.in ) %0A%0APowered By http://www.myappstore.co.in";//https://facebook.com/sharer/sharer.php?u=http%3A%2F%2Fsharingbuttons.io
+            document.getElementById("twLink").href = "https://twitter.com/intent/tweet/?text=APP Name: " + name + "%0A%0ADownload Link: " + link + "%0A%0AVersion: " + version + "%0A%0AStore Name: " + storename + " ( http://" + storename.toLowerCase() + ".myappstore.co.in ) %0A%0APowered By http://www.myappstore.co.in";//https://twitter.com/intent/tweet/?text=Super%20fast%20and%20easy%20Social%20Media%20Sharing%20Buttons.%20No%20JavaScript.%20No%20tracking.&amp;url=http%3A%2F%2Fsharingbuttons.io
+            document.getElementById("gpLink").href = "https://plus.google.com/share?text=APP Name: " + name + "%0A%0ADownload Link: " + link + "%0A%0AVersion: " + version + "%0A%0AStore Name: " + storename + " ( http://" + storename.toLowerCase() + ".myappstore.co.in ) %0A%0APowered By http://www.myappstore.co.in";//https://plus.google.com/share?url=http%3A%2F%2Fsharingbuttons.io
+            document.getElementById("mlLink").href = "mailto:?subject=APK Link&amp;body=APP Name: " + name + "%0A%0ADownload Link: " + link + "%0A%0AVersion: " + version + "%0A%0AStore Name: " + storename + " ( http://" + storename.toLowerCase() + ".myappstore.co.in ) %0A%0APowered By http://www.myappstore.co.in"; //mailto:?subject=Super%20fast%20and%20easy%20Social%20Media%20Sharing%20Buttons.%20No%20JavaScript.%20No%20tracking.&amp;body=http%3A%2F%2Fsharingbuttons.io
+            document.getElementById("waLink").href = "https://web.whatsapp.com/send?text=*APP Name:* " + name + "%0A%0A*Download Link:* " + link + "%0A%0A*Version:* " + version + "%0A%0A*Store Name:* " + storename + "%0A%0A*Powered By* http://www.myappstore.co.in"; //mailto:?subject=Super%20fast%20and%20easy%20Social%20Media%20Sharing%20Buttons.%20No%20JavaScript.%20No%20tracking.&amp;body=http%3A%2F%2Fsharingbuttons.io
             $("#myModalShare").modal('show');
         }
 
@@ -73,6 +72,23 @@
                 <div class="page-title" runat="server" id="divTitle">Dashboard</div>
             </div>
             <ol class="pull-right">
+                <asp:UpdatePanel ID="UpdatePanel5" runat="server"  class="pull-left" style="padding-top: 25px">
+                    <ContentTemplate>
+                            <asp:LinkButton ID="lnkShareMain" Text="Share" runat="server" title="Share Store Link" OnClick="lnkShareMain_Click">&nbsp;<em class="btn btn-facebook waves-effect waves-light fa fa-share-alt"></em></asp:LinkButton>                    
+                    </ContentTemplate>
+                    <Triggers>
+                        <asp:AsyncPostBackTrigger ControlID="lnkShareMain" />
+                    </Triggers>
+                </asp:UpdatePanel>
+
+                <asp:UpdatePanel ID="UpdatePanel6" runat="server" class="pull-left" style="padding-top: 25px">
+                    <ContentTemplate>
+                            <asp:LinkButton ID="lnkSendSmsMain" Text="Send Sms" runat="server" title="Send Store Link Sms" OnClick="lnkSendSmsMain_Click">&nbsp;<em class="btn btn-facebook waves-effect waves-light fa fa-external-link"></em></asp:LinkButton>                      
+                    </ContentTemplate>
+                    <Triggers>
+                        <asp:AsyncPostBackTrigger ControlID="lnkSendSmsMain" />
+                    </Triggers>
+                </asp:UpdatePanel>
                 <a class="parent-item" id="dwnldlink" runat="server" title="Download Client Store APK" href="#">
                     <img src="../Images/android.png" style="height: 85px;" /></a>
             </ol>
@@ -100,20 +116,21 @@
                                 </div>
                                 <div class="col-lg-6 p-t-20">
                                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
-                                        <asp:TextBox ID="txtName" runat="server" class="mdl-textfield__input"></asp:TextBox>
-                                        <label class="mdl-textfield__label">APK Name</label>
+                                        <label>APK Name</label>
+                                        <asp:TextBox ID="txtName" runat="server" class="mdl-textfield__input"></asp:TextBox>                                        
                                     </div>
                                 </div>
                                 <div class="col-lg-6 p-t-20">
                                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
+                                         <label>APK Package Name</label>
                                         <asp:TextBox ID="txtPackageName" runat="server" class="mdl-textfield__input"></asp:TextBox>
-                                        <label class="mdl-textfield__label">APK Package Name</label>
+                                       
                                     </div>
                                 </div>
                                 <div class="col-lg-6 p-t-20">
                                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
-                                        <asp:TextBox ID="txtVersion" runat="server" class="mdl-textfield__input"></asp:TextBox>
-                                        <label class="mdl-textfield__label">APK Version</label>
+                                        <label>APK Version</label>
+                                        <asp:TextBox ID="txtVersion" runat="server" class="mdl-textfield__input"></asp:TextBox>                                        
                                     </div>
                                 </div>
                                 <%--<div class="col-lg-6 p-t-20" id="divUserName" visible="false" runat="server">
@@ -133,7 +150,7 @@
                                 <div class="col-lg-6 p-t-20" id="divSubmit" runat="server">
                                     <div class="profile-userbuttons">
                                         <asp:Button ID="btnSubmit" runat="server" class="btn btn-circle blue btn-md" Text="Upload" OnClick="btnSubmit_Click" />
-                                        <button type="button" class="btn btn-circle btn-default" onclick="ShowPanelAdd('cancel');">Cancel</button>
+                                        <button type="button" class="btn btn-circle btn-default" onclick="ShowPanelAdd();">Cancel</button>
                                     </div>
                                 </div>
                                 <%--<div class="col-lg-6 p-t-20" id="divSubmit1" runat="server" visible="false">
@@ -168,9 +185,19 @@
                     <div class="row">
                         <div class="col-md-6 col-sm-6 col-6">
                             <div class="btn-group">
-                                <%--<a  class="btn btn-info" data-toggle="modal" data-target="#myModal">Add New <i class="fa fa-plus"></i></a>--%>
-                                <%--<button type="button" class="btn btn-circle btn-primary" data-toggle="modal" data-target="#myModal"><i class="fa fa-cloud-upload"></i>Upload APK</button>--%>
-                                <button type="button" class="btn btn-circle btn-primary" onclick="ShowPanelAdd('upload');"><i class="fa fa-cloud-upload"></i>Upload APK</button>
+                                <%--<button type="button" class="btn btn-circle btn-primary" onclick="ShowPanelAdd('upload');"><i class="fa fa-cloud-upload"></i>Upload APK</button>--%>
+                                <%-- <button  runat="server" class="btn btn-circle blue btn-md " text="Upload" OnClientClick="btnUpload_Click"><i class="fa fa-cloud-upload"></i>Upload APK</button>--%>
+
+                                <asp:UpdatePanel ID="UpdatePanel4" runat="server">
+                                    <ContentTemplate>
+                                      
+                                            <asp:LinkButton ID="btnUpload" Text="Upload APP" runat="server" class="btn btn-circle blue btn-md " title="Copy" OnClick="btnUpload_Click">&nbsp;<em class="fa fa-cloud-upload"></em>&nbsp;Upload APP</asp:LinkButton>
+                                       
+                                    </ContentTemplate>
+                                    <Triggers>
+                                        <asp:AsyncPostBackTrigger ControlID="btnUpload" />
+                                    </Triggers>
+                                </asp:UpdatePanel>
                             </div>
                         </div>
                     </div>
@@ -372,7 +399,7 @@
                             </div>
                         </ContentTemplate>
                         <Triggers>
-                            <asp:AsyncPostBackTrigger ControlID="btnEditSubmit" />
+                            <asp:AsyncPostBackTrigger ControlID="btnSendSms" />
                         </Triggers>
                     </asp:UpdatePanel>
                 </div>

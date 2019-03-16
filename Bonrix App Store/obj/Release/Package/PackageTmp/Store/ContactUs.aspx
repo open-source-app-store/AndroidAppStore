@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Store/Store.Master" AutoEventWireup="true" CodeBehind="ContactUs.aspx.cs" Inherits="Bonrix_App_Store.Store.ContactUs" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -33,7 +34,7 @@
                                         <i class="fa fa-map-marker"></i>
                                         <span>Bonrix Software Systems
                                             <br />
-                                            A - 801, Samudra Complex, Near Classic Gold Hotel, Off C. G. Road, Ahmedabad, Gujarat 380006
+                                            A - 801, Samudra Complex, Near Classic Gold Hotel, Off C. G. Road, Ahmedabad, Gujarat 380006,India
                                         </span>
                                     </div>
                                     <div class="contact-detail">
@@ -58,6 +59,12 @@
                                         <i class="fa fa-envelope"></i>
                                         <span>
                                             <a href="#">info@bonrix.net</a>
+                                        </span>
+                                    </div>
+                                    <div class="contact-detail">
+                                        <i class="fa fa-skype"></i>
+                                        <span>
+                                            <a href="#">bonrix_sms</a>
                                         </span>
                                     </div>
                                 </div>

@@ -207,6 +207,7 @@ namespace Bonrix_App_Store.Admin
                 string name = "";
                 string package = "";
                 string version = "";
+                string ApkFileName = "";
                 RepeaterItem item = (sender as LinkButton).Parent as RepeaterItem;
                 string lblFolderName = (item.FindControl("lblFolderName") as Label).Text.Trim();
                 string StoreDirectory = ConfigurationManager.AppSettings["Store_Directory"].ToString();
@@ -215,27 +216,53 @@ namespace Bonrix_App_Store.Admin
                 txtName.Text = "";
                 txtPackageName.Text = "";
                 txtVersion.Text = "";
-                if (System.IO.File.Exists(filePath + "\\" + lblFolderName + "\\" + "StoreAPK\\" + lblFolderName + ".txt"))
+
+                DirectoryInfo dirInfo = new DirectoryInfo(filePath + "\\" + lblFolderName + "\\" + "StoreAPK\\");
+                if (System.IO.Directory.Exists(dirInfo.ToString()))
                 {
-                    if (Session["StoreUserName"] == null && Session["StorePassword"] == null)
+                    string[] innerSubdirectoryEntries = Directory.GetFiles(dirInfo.ToString(), "*.apk");
+
+                    if (innerSubdirectoryEntries.Length > 0)
                     {
-                        Notification("Login to upload APK.", "error");
+                        foreach (var innerDirectory in innerSubdirectoryEntries)
+                        {
+                            int StringPosition = innerDirectory.IndexOf("StoreAPK");
+                            ApkFileName = innerDirectory.Substring(StringPosition, innerDirectory.Length - StringPosition);
+                            ApkFileName = ApkFileName.Replace("StoreAPK", "").Replace(@"\", "");
+                            ApkFileName = ApkFileName.Replace(".apk", "");
+                            if (System.IO.File.Exists(filePath + "\\" + lblFolderName + "\\" + "StoreAPK\\" + ApkFileName + ".txt"))
+                            {
+                                if (Session["StoreUserName"] == null && Session["StorePassword"] == null)
+                                {
+                                    Notification("Login to upload APK.", "error");
+                                    return;
+                                }
+                                getDetails_Directory = System.IO.File.ReadAllText(filePath + "\\" + lblFolderName + "\\" + "StoreAPK\\" + ApkFileName + ".txt");
+                                var details = JObject.Parse(getDetails_Directory);
+
+                                name = details["name"].ToString().Replace("\"", "").Trim();
+                                package = details["package"].ToString().Replace("\"", "").Trim();
+                                version = details["version"].ToString().Replace("\"", "").Trim();
+                                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Msg", "EditValue('" + lblFolderName + "','" + ApkFileName + "','" + name + "','" + package + "','" + version + "');", true);
+
+                            }
+                            else
+                            {
+                                string aa = filePath + "\\" + lblFolderName + "\\" + "StoreAPK\\" + ApkFileName + ".txt";
+                                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Msg", "EditValue('" + lblFolderName + "','" + ApkFileName + "','" + name + "','" + package + "','" + version + "');", true);
+                            }
+                        }
+
+
+                    }
+                    else
+                    {
+                        Notification("First Upload APP", "error");
                         return;
                     }
-                    getDetails_Directory = System.IO.File.ReadAllText(filePath + "\\" + lblFolderName + "\\" + "StoreAPK\\" + lblFolderName + ".txt");
-                    var details = JObject.Parse(getDetails_Directory);
-
-                    name = details["name"].ToString().Replace("\"", "").Trim();
-                    package = details["package"].ToString().Replace("\"", "").Trim();
-                    version = details["version"].ToString().Replace("\"", "").Trim();
-                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Msg", "EditValue('" + lblFolderName + "','" + name + "','" + package + "','" + version + "');", true);
-
                 }
-                else
-                {
-                    string aa=filePath + "\\" + lblFolderName + "\\" + "StoreAPK\\" + lblFolderName + ".txt";
-                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Msg", "EditValue('" + lblFolderName + "','" + name + "','" + package + "','" + version + "');", true);
-                }
+
+               
 
 
             }
@@ -425,9 +452,10 @@ namespace Bonrix_App_Store.Admin
             {
 
                 string lblFolderName = hiddenFolderName.Value.ToString();
+                string lblApkFileName = hiddenFolderApkName.Value.ToString();
                 string StoreDirectory = ConfigurationManager.AppSettings["Store_Directory"].ToString();
                 StoreDirectory = StoreDirectory + "\\" + hiddenFolderName.Value.ToString() + "\\StoreAPK";
-                StoreDirectory = StoreDirectory + "\\" + lblFolderName + ".txt";
+                StoreDirectory = StoreDirectory + "\\" + lblApkFileName + ".txt";
                 if (System.IO.File.Exists(StoreDirectory))
                 {
                     System.IO.File.Delete(StoreDirectory);

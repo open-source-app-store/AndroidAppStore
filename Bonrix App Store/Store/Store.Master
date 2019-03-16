@@ -31,6 +31,7 @@
     <link href="../assets/plugins/dropzone/dropzone.css" rel="stylesheet" media="screen" />
     <!-- Date Time item CSS -->
     <link rel="stylesheet" href="../assets/plugins/material-datetimepicker/bootstrap-material-datetimepicker.css" />
+    <link href="../assets/css/share.css" rel="stylesheet" type="text/css" />
     <!-- Jquery Toast css -->
     <link rel="stylesheet" href="../assets/plugins/jquery-toast/dist/jquery.toast.min.css" />
     <!-- Theme Styles -->
@@ -40,7 +41,7 @@
     <link href="../assets/css/responsive.css" rel="stylesheet" type="text/css" />
     <link href="../assets/css/theme/light/theme-color.css" rel="stylesheet" type="text/css" />
     <!-- favicon -->
-      <link rel="shortcut icon" href="../Images/androidico.ico"/>
+    <link rel="shortcut icon" href="../Images/androidico.ico" />
 
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
@@ -111,8 +112,8 @@
                         <li><a href="#" class="menu-toggler sidebar-toggler"><i class="icon-menu"></i></a></li>
                     </ul>
                     <asp:TextBox ID="txtsearch" runat="server" placeholder="Search..." Style="margin: 10px 10px 10px 10px"></asp:TextBox>
-                    <button type="button" class="btn btn-primary" runat="server"><i class="fa fa-search"></i>Search</button>
-
+                    <asp:LinkButton ID="btnSearch" Text="Search" runat="server" title="Search" class="btn btn-primary" OnClick="btnSearch_Click">&nbsp;<em class="fa fa-search"></em>Search</asp:LinkButton>
+                    <%-- <button type="button" class="btn btn-primary" runat="server"><i class="fa fa-search"></i>Search</button>--%>
                     <!-- start mobile menu -->
                     <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
                         <span></span>

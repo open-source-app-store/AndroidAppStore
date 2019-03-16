@@ -58,7 +58,20 @@ namespace Bonrix_App_Store.ClientStore
                     {
                         Session["StoreUserName"] = username;
                         Session["StorePassword"] = password;
+                        ////if (Response.IsClientConnected)
+                        ////{
+                        ////    // If still connected, redirect
+                        ////    // to another page. 
+                        ////    Response.Redirect("~/ClientStore/Home.aspx", false);
+                        ////}
+                        ////else
+                        ////{
+                        ////    // If the browser is not connected
+                        ////    // stop all response processing.
+                        ////    Response.End();
+                        ////}
                         Response.Redirect("~/ClientStore/Home.aspx", false);
+
                     }
                     else
                     {
